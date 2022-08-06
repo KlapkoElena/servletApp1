@@ -4,28 +4,28 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRepository {
+public class CarBaseRepository {
 
-    public static void main(String[] args) {
-        getConnection();
-
-        Employee employee = new Employee();
-
-        employee.setName("oleg");
-        employee.setEmail(" ");
-        employee.setCountry(" ");
-        save(employee);
-    }
+//    public static void main(String[] args) {
+//        getConnection();
+//
+//        CarBase carBase = new CarBase();
+//
+//        carBase.setBrand("oleg");
+//        carBase.setColor(" ");
+//        carBase.setModel(" ");
+//        save(carBase);
+//    }
 
     public static Connection getConnection() {
 
         Connection connection = null;
         String url = "jdbc:postgresql://localhost:5432/employee";
-        String user = "postgres";
+        String car_base = "postgres";
         String password = "1234";
 
         try {
-            connection = DriverManager.getConnection(url, user, password);
+            connection = DriverManager.getConnection(url, car_base, password);
             if (connection != null) {
                 System.out.println("Connected to the PostgreSQL server successfully.");
             } else {
@@ -43,14 +43,14 @@ public class EmployeeRepository {
         return connection;
     }
 
-    public static int save(Employee employee) {
+    public static int save(CarBase carBase) {
         int status = 0;
         try {
-            Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("insert into users(name,email,country) values (?,?,?)");
-            ps.setString(1, employee.getName());
-            ps.setString(2, employee.getEmail());
-            ps.setString(3, employee.getCountry());
+            Connection connection = CarBaseRepository.getConnection();
+            PreparedStatement ps = connection.prepareStatement("insert into car_base(brand,model,color) values (?,?,?)");
+            ps.setString(1, carBase.getBrand());
+            ps.setString(2, carBase.getColor());
+            ps.setString(3, carBase.getModel());
 
             status = ps.executeUpdate();
             connection.close();
@@ -67,17 +67,17 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static int update(Employee employee) {
+    public static int update(CarBase carBase) {
 
         int status = 0;
 
         try {
-            Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("update users set name=?,email=?,country=? where id=?");
-            ps.setString(1, employee.getName());
-            ps.setString(2, employee.getEmail());
-            ps.setString(3, employee.getCountry());
-            ps.setInt(4, employee.getId());
+            Connection connection = CarBaseRepository.getConnection();
+            PreparedStatement ps = connection.prepareStatement("update car_base set brand=?,model=?,color=? where number=?");
+            ps.setString(1, carBase.getBrand());
+            ps.setString(2, carBase.getColor());
+            ps.setString(3, carBase.getModel());
+            ps.setInt(4, carBase.getNumber());
 
             status = ps.executeUpdate();
             connection.close();
@@ -94,14 +94,14 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static int delete(int id) {
+    public static int delete(int number) {
 
         int status = 0;
 
         try {
-            Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("delete from users where id=?");
-            ps.setInt(1, id);
+            Connection connection = CarBaseRepository.getConnection();
+            PreparedStatement ps = connection.prepareStatement("delete from car_base where number=?");
+            ps.setInt(1, number);
             status = ps.executeUpdate();
 
             connection.close();
@@ -118,20 +118,20 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static Employee getEmployeeById(int id) {
+    public static CarBase getCarBaseById(int carNumber) {
 
-        Employee employee = new Employee();
+        CarBase carBase = new CarBase();
 
         try {
-            Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from users where id=?");
-            ps.setInt(1, id);
+            Connection connection = CarBaseRepository.getConnection();
+            PreparedStatement ps = connection.prepareStatement("select * from car_base where number=?");
+            ps.setInt(1, carNumber);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                employee.setId(rs.getInt(1));
-                employee.setName(rs.getString(2));
-                employee.setEmail(rs.getString(3));
-                employee.setCountry(rs.getString(4));
+                carBase.setNumber(rs.getInt(1));
+                carBase.setBrand(rs.getString(2));
+                carBase.setColor(rs.getString(3));
+                carBase.setModel(rs.getString(4));
             }
             connection.close();
 
@@ -144,28 +144,28 @@ public class EmployeeRepository {
                 throw new RuntimeException(e);
             }
         }
-        return employee;
+        return carBase;
     }
 
-    public static List<Employee> getAllEmployees() {
+    public static List<CarBase> getAllCarBases() {
 
-        List<Employee> listEmployees = new ArrayList<>();
+        List<CarBase> listCarBases = new ArrayList<>();
 
         try {
-            Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from users");
+            Connection connection = CarBaseRepository.getConnection();
+            PreparedStatement ps = connection.prepareStatement("select * from car_base");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
-                Employee employee = new Employee();
+                CarBase carBase = new CarBase();
 
-                employee.setId(rs.getInt(1));
-                employee.setName(rs.getString(2));
-                employee.setEmail(rs.getString(3));
-                employee.setCountry(rs.getString(4));
+                carBase.setNumber(rs.getInt(1));
+                carBase.setBrand(rs.getString(2));
+                carBase.setColor(rs.getString(3));
+                carBase.setModel(rs.getString(4));
 
-                listEmployees.add(employee);
+                listCarBases.add(carBase);
             }
             connection.close();
 
@@ -178,6 +178,6 @@ public class EmployeeRepository {
                 throw new RuntimeException(e);
             }
         }
-        return listEmployees;
+        return listCarBases;
     }
 }

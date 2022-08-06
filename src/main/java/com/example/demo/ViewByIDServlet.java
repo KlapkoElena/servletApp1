@@ -15,12 +15,12 @@ public class ViewByIDServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        String sid = request.getParameter("id");
-        int id = Integer.parseInt(sid);
+        String sid = request.getParameter("number");
+        int number = Integer.parseInt(sid);
 
-        Employee employee = EmployeeRepository.getEmployeeById(id);
+        CarBase carBase = CarBaseRepository.getCarBaseById(number);
 
-        out.print(employee);
+        out.print(carBase);
         out.close();
     }
 }

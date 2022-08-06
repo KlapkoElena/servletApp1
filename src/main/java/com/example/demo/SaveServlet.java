@@ -19,20 +19,20 @@ public class SaveServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
 
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String country = request.getParameter("country");
+        String brand = request.getParameter("brand");
+        String model = request.getParameter("model");
+        String color = request.getParameter("color");
 
-        Employee employee = new Employee();
+        CarBase carBase = new CarBase();
 
-        employee.setName(name);
-        employee.setEmail(email);
-        employee.setCountry(country);
+        carBase.setBrand(brand);
+        carBase.setColor(model);
+        carBase.setModel(color);
 
         //out.println(employee.toString());
         //out.println(EmployeeRepository.getConnection());
 
-        int status = EmployeeRepository.save(employee);
+        int status = CarBaseRepository.save(carBase);
         //out.println(status);
 
         if (status > 0) {

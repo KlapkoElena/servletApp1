@@ -17,19 +17,19 @@ public class PutServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        String sid = request.getParameter("id");
-        int id = Integer.parseInt(sid);
+        String sid = request.getParameter("number");
+        int number = Integer.parseInt(sid);
 
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
+        String brand = request.getParameter("brand");
+        String model = request.getParameter("model");
 
-        Employee employee = new Employee();
-        employee.setId(id);
-        employee.setName(name);
-        employee.setEmail(email);
-        employee.setCountry(request.getParameter("country"));
+        CarBase carBase = new CarBase();
+        carBase.setNumber(number);
+        carBase.setBrand(brand);
+        carBase.setColor(model);
+        carBase.setModel(request.getParameter("color"));
 
-        int status = EmployeeRepository.update(employee);
+        int status = CarBaseRepository.update(carBase);
 
         if (status > 0) {
             response.sendRedirect("viewServlet");
