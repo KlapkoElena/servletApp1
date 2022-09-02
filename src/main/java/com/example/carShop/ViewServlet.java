@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.carShop;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,16 +11,16 @@ import java.util.List;
 
 @WebServlet("/viewServlet")
 public class ViewServlet extends HttpServlet {
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        List<CarBase> list = CarBaseRepository.getAllCarBases();
-
-        for (CarBase carBase : list) {
-            out.print(carBase);
+        //List<Carshop> list = CarshopRepository.getAllCarshops();
+        // List<Carshop> list = CarshopRepository.getCarByCode();
+        List<Carshop> list = CarshopRepository.getAllisCarshops();
+        for (Carshop carshop : list) {
+            out.print(carshop);
         }
         out.close();
     }

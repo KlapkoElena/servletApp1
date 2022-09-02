@@ -1,4 +1,4 @@
-package com.example.demo.session;
+package com.example.carShop.session;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

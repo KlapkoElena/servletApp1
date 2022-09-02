@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.carShop;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,19 +17,19 @@ public class PutServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        String sid = request.getParameter("number");
-        int number = Integer.parseInt(sid);
+        String sid = request.getParameter("code");
+        int code = Integer.parseInt(sid);
 
-        String brand = request.getParameter("brand");
-        String model = request.getParameter("model");
+        String name = request.getParameter("name");
+        String price = request.getParameter("price");
 
-        CarBase carBase = new CarBase();
-        carBase.setNumber(number);
-        carBase.setBrand(brand);
-        carBase.setColor(model);
-        carBase.setModel(request.getParameter("color"));
+        com.example.carShop.Carshop carshop = new com.example.carShop.Carshop();
+        carshop.setCode(code);
+        carshop.setName(name);
+        carshop.setPrice(price);
+        carshop.setAvailability(request.getParameter("availability"));
 
-        int status = CarBaseRepository.update(carBase);
+        int status = com.example.carShop.CarshopRepository.update(carshop);
 
         if (status > 0) {
             response.sendRedirect("viewServlet");

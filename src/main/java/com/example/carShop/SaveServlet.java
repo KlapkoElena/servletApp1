@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.carShop;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,20 +19,20 @@ public class SaveServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
 
-        String brand = request.getParameter("brand");
-        String model = request.getParameter("model");
-        String color = request.getParameter("color");
+        String name = request.getParameter("name");
+        String price = request.getParameter("price");
+        String availability = request.getParameter("availability");
 
-        CarBase carBase = new CarBase();
+        com.example.carShop.Carshop carshop = new com.example.carShop.Carshop();
 
-        carBase.setBrand(brand);
-        carBase.setColor(model);
-        carBase.setModel(color);
+        carshop.setName(name);
+        carshop.setPrice(price);
+        carshop.setAvailability(availability);
 
         //out.println(employee.toString());
         //out.println(EmployeeRepository.getConnection());
 
-        int status = CarBaseRepository.save(carBase);
+        int status = com.example.carShop.CarshopRepository.save(carshop);
         //out.println(status);
 
         if (status > 0) {

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.carShop;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,12 +15,12 @@ public class ViewByIDServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        String sid = request.getParameter("number");
-        int number = Integer.parseInt(sid);
+        String sid = request.getParameter("code");
+        int code = Integer.parseInt(sid);
 
-        CarBase carBase = CarBaseRepository.getCarBaseById(number);
+        Carshop carshop = CarshopRepository.getCarshopByCode(code);
 
-        out.print(carBase);
+        out.print(carshop);
         out.close();
     }
 }
